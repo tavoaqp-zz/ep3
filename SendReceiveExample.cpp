@@ -7,6 +7,7 @@
 #include "Comm.h"
 #include "SimpleCommObject.h"
 #include "GeneralUtilities.h"
+#include "utils.h"
 
 int main (int argc, char **argv)
 {
