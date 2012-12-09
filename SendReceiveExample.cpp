@@ -35,15 +35,15 @@ int main (int argc, char **argv)
 	printf("Ta faltando argumento com tamanho das matrices: ex. 1,3,4,5,6");
   }
 
-	bloco=list.size()-1/p;
+	int bloco=values.size()-1/p;
 	comm -> synchronize();
 	SimpleCommObject<int> sample(0);
-	int **total_matrix=new int[list.size()-1][list.size()-1];
+	int **total_matrix=new int[values.size()-1][list.size()-1];
 	for (int row=0;row<list.size();row++)
 	{
-		total_matrix[row][row]=list[row];
+		total_matrix[row][row]=values[row];
 	}
-	int **matrix=new int[bloco][list.size()-1];
+	int **matrix=new int[bloco][values.size()-1];
 	CommObjectList *last_data_received=0;
 	for (int rodada=0;rodada<=p-id;rodada++)
 	{
