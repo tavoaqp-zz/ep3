@@ -112,19 +112,19 @@ void workOnSubMatrix(int ***matrix, int row_start, int row_end, int col_start, i
 	else
 	{
 		int rec_row_start=0;
-		SimpleCommObject<int> *row_start_obj=dynamic_cast<SimpleCommObject<int>*>((*result)[0]);
+		SimpleCommObject<int> *row_start_obj=dynamic_cast<SimpleCommObject<int>*>((**result)[0]);
 		rec_row_start=row_start_obj->getData();
 		
 		int rec_row_end=0;
-		SimpleCommObject<int> *row_end_obj=dynamic_cast<SimpleCommObject<int>*>((*result)[1]);
+		SimpleCommObject<int> *row_end_obj=dynamic_cast<SimpleCommObject<int>*>((**result)[1]);
 		rec_row_end=row_end_obj->getData();
 
 		int rec_col_start=0;
-		SimpleCommObject<int> *col_start_obj=dynamic_cast<SimpleCommObject<int>*>((*result)[2]);
+		SimpleCommObject<int> *col_start_obj=dynamic_cast<SimpleCommObject<int>*>((**result)[2]);
 		rec_col_start=col_start_obj->getData();
 
 		int rec_col_end=0;
-		SimpleCommObject<int> *col_end_obj=dynamic_cast<SimpleCommObject<int>*>((*result)[3]);
+		SimpleCommObject<int> *col_end_obj=dynamic_cast<SimpleCommObject<int>*>((**result)[3]);
 		rec_col_end=col_end_obj->getData();
 
 		int rows=rec_row_end-rec_row_start+1;
@@ -134,7 +134,7 @@ void workOnSubMatrix(int ***matrix, int row_start, int row_end, int col_start, i
 		for (int i=rec_row_start;i<=rec_row_end;i++)
 			for (int j=rec_col_start;j<=rec_col_end;j++)
 			{
-				SimpleCommObject<int>* next=dynamic_cast<SimpleCommObject<int>*>((*result)[index]);
+				SimpleCommObject<int>* next=dynamic_cast<SimpleCommObject<int>*>((**result)[index]);
 				(*matrix)[i][j]=next->getData();
 				index++;
 			}
