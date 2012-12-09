@@ -82,13 +82,13 @@ int main (int argc, char **argv)
 		}
 		if (id!=p-1)
 		{
-			comm -> receive(id+1,data_receive,id+1,&actualSource);
+			comm -> receive(id+1,data_to_receive,id+1,&actualSource);
 			last_data_received=&data_to_receive;
 		}
 	}
 	if (id==0)
 	{
-		printf("Custo total da matriz %d",matrix[0][list.size()-2]);
+		printf("Custo total da matriz %d",matrix[0][values.size()-1]);
 	}
 
   comm -> dispose(); 
@@ -103,7 +103,7 @@ void copyToSubMatrix(int ***matrix, int ***submatrix, int row_start, int row_end
 		}
 }
 
-void workOnSubMatrix(int ***cost_matrix, int row_start, int row_end, int col_start, int col_end, CommObjectList **last_received)
+void workOnSubMatrix(int ***matrix, int row_start, int row_end, int col_start, int col_end, CommObjectList **result)
 {
 	if (last_received!=0)
 	{
@@ -146,16 +146,16 @@ void convertMatrixToList(int ***matrix, int row_start, int row_end, int col_star
 	int rows=row_end-row_start+1;
 	int cols=col_end-col_start+1;
 	result->setSize(4+rows*cols+(rows-1));
-	SimpleCommObject<int> *row_start_obj=(*result)[0];
+	SimpleCommObject<int> *row_start_obj=dynamic_cast<SimpleCommObject<int>* >((*result)[0]);
 	row_start_obj->setData(row_start);
 
-	SimpleCommObject<int> *row_end_obj=(*result)[1];
+	SimpleCommObject<int> *row_end_obj=dynamic_cast<SimpleCommObject<int>* >((*result)[1]);
 	row_end_obj->setData(row_end);
 
-	SimpleCommObject<int> *col_start_obj=(*result)[2];
+	SimpleCommObject<int> *col_start_obj=dynamic_cast<SimpleCommObject<int>* >((*result)[2]);
 	col_start_obj->setData(col_start);
 
-	SimpleCommObject<int> *col_end_obj=(*result)[3];
+	SimpleCommObject<int> *col_end_obj=dynamic_cast<SimpleCommObject<int>* >((*result)[3]);
 	col_end_obj->setData(col_end);
 
 	int elem_index=4;
