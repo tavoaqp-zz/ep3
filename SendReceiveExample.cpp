@@ -8,6 +8,11 @@
 #include "SimpleCommObject.h"
 #include "GeneralUtilities.h"
 
+void copyToSubMatrix(int ***matrix, int ***submatrix, int row_start, int row_end, int col_start, int col_end);
+void workOnSubMatrix(int ***cost_matrix, int row_start, int row_end, int col_start, int col_end, CommObjectList *last_received);
+void convertMatrixToList(int ***matrix, int row_start, int row_end, int col_start, int col_end, CommObjectList *result);
+
+
 int main (int argc, char **argv)
 {
   CGMTimers *timers = new CGMTimers ();
@@ -38,7 +43,7 @@ int main (int argc, char **argv)
 	int bloco=values.size()-1/p;
 	comm -> synchronize();
 	SimpleCommObject<int> sample(0);
-	int **total_matrix=new int[values.size()-1][list.size()-1];
+	int **total_matrix=new int[values.size()-1][values.size()-1];
 	for (int row=0;row<list.size();row++)
 	{
 		total_matrix[row][row]=values[row];
