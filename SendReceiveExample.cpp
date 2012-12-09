@@ -32,9 +32,9 @@ int main (int argc, char **argv)
   }
   else
   {
-	printf("Ta faltando argumento com tamanho das matrices: ex. 1,3,4,5,6");	
+	printf("Ta faltando argumento com tamanho das matrices: ex. 1,3,4,5,6");
   }
-	
+
 	bloco=list.size()-1/p;
 	comm -> synchronize();
 	SimpleCommObject<int> sample(0);
@@ -47,7 +47,7 @@ int main (int argc, char **argv)
 	CommObjectList *last_data_received=0;
 	for (int rodada=0;rodada<=p-id;rodada++)
 	{
-		CommObjectList data_to_send(&sample);		
+		CommObjectList data_to_send(&sample);
 		int row_start=0;
 		int row_end=bloco-1;
 		int col_start=rodada*bloco;
@@ -58,7 +58,7 @@ int main (int argc, char **argv)
 		col_start+=offset;
 		col_end+=offset;
 		int row_size=row_end-row_start+1;
-		int col_size=col_end-col_start+1;		
+		int col_size=col_end-col_start+1;
 		workOnSubMatrix(&matrix,row_start,row_end,col_start,col_end, &last_data_received);
 		int **submatrix=new int[row_size][col_size];
 		copyToSubMatrix(&matrix,&submatrix,row_start,row_end,col_start,col_end);

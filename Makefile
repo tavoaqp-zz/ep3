@@ -10,5 +10,5 @@ EXECS = SendReceiveExample
 
 all: $(EXECS)
 
-SendReceiveExample: SendReceiveExample.o PairCommObject.o utils.o
-	$(CCLINKER) -o $@ SendReceiveExample.o PairCommObject.o utils.o -L../../lib -lcgm $(MPILDFLAGS)
+SendReceiveExample: SendReceiveExample.o
+	$(CCLINKER) -o $@ SendReceiveExample.o -L../../lib -lcgm $(MPILDFLAGS)
