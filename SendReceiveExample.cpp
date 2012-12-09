@@ -10,7 +10,7 @@
 
 void copyToSubMatrix(int ***matrix, int ***submatrix, int row_start, int row_end, int col_start, int col_end);
 void workOnSubMatrix(int ***cost_matrix, int row_start, int row_end, int col_start, int col_end, CommObjectList **last_received);
-void convertMatrixToList(int ***matrix, int row_start, int row_end, int col_start, int col_end, CommObjectList **result);
+void convertMatrixToList(int ***matrix, int row_start, int row_end, int col_start, int col_end, CommObjectList *result);
 
 
 int main (int argc, char **argv)
@@ -46,7 +46,7 @@ int main (int argc, char **argv)
 	int matrix_size=values.size()-1;
 	int **total_matrix=new int*[matrix_size];
 	for (int i=0;i<matrix_size;i++)
-		total_matrix[i]=new int[matriz_size];
+		total_matrix[i]=new int[matrix_size];
 	for (int row=0;row<values.size();row++)
 	{
 		total_matrix[row][row]=values[row];
@@ -70,7 +70,9 @@ int main (int argc, char **argv)
 		int row_size=row_end-row_start+1;
 		int col_size=col_end-col_start+1;
 		workOnSubMatrix(&matrix,row_start,row_end,col_start,col_end, &last_data_received);
-		int **submatrix=new int[row_size][col_size];
+		int **submatrix=new int*[row_size];
+		for (int i=0;i<row_size;i++)
+			submatrix[i]=new int[col_size];
 		copyToSubMatrix(&matrix,&submatrix,row_start,row_end,col_start,col_end);
 		convertMatrixToList(&submatrix,row_start, row_end, col_start, col_end, &data_to_send);
 		CommObjectList data_to_receive(&sample);
@@ -101,7 +103,7 @@ void copyToSubMatrix(int ***matrix, int ***submatrix, int row_start, int row_end
 		}
 }
 
-void workOnSubMatrix(int ***cost_matrix, int row_start, int row_end, int col_start, int col_end, CommObjectList *last_received)
+void workOnSubMatrix(int ***cost_matrix, int row_start, int row_end, int col_start, int col_end, CommObjectList **last_received)
 {
 	if (last_received!=0)
 	{
