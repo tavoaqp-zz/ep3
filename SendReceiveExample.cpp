@@ -44,12 +44,16 @@ int main (int argc, char **argv)
 	comm -> synchronize();
 	SimpleCommObject<int> sample(0);
 	int matrix_size=values.size()-1;
-	int **total_matrix=new int[matrix_size][matrix_size];
-	for (int row=0;row<list.size();row++)
+	int **total_matrix=new int*[matrix_size];
+	for (int i=0;i<matrix_size;i++)
+		total_matrix[i]=new int[matriz_size];
+	for (int row=0;row<values.size();row++)
 	{
 		total_matrix[row][row]=values[row];
 	}
-	int **matrix=new int[bloco][matrix_size];
+	int **matrix=new int*[bloco];
+	for (int i=0;i<bloco;i++)
+		matrix[i]=new int[matrix_size];
 	CommObjectList *last_data_received=0;
 	for (int rodada=0;rodada<=p-id;rodada++)
 	{
