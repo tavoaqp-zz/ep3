@@ -64,9 +64,9 @@ int main (int argc, char **argv)
 
 		workOnSubMatrix(&total_matrix, &values, row_start,row_end,col_start,col_end, rodada, bloco, id);
 		
-		int **submatrix=new int*[row_size];
+		int **submatrix=new int*[row_end-row_start+1];
 		for (int i=0;i<row_size;i++)
-			submatrix[i]=new int[col_size];
+			submatrix[i]=new int[col_end-col_start+1];
 		copyToSubMatrix(&matrix,&submatrix,row_start,row_end,col_start,col_end);
 		convertMatrixToList(&submatrix,row_start, row_end, col_start, col_end, &data_to_send);
 		CommObjectList data_to_receive(&sample);
