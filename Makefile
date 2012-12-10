@@ -3,12 +3,12 @@
 include ../../Makefile.common
 include depends.inc
 
-EXECS = SendReceiveExample
+EXECS = MatrixMultiplication 
 
 .cpp.o:
 	$(CCC) $(CFLAGS) -I../../include -c $<
 
 all: $(EXECS)
 
-SendReceiveExample: SendReceiveExample.o utils.o
-	$(CCLINKER) -o $@ SendReceiveExample.o utils.o -L../../lib -lcgm $(MPILDFLAGS)
+SendReceiveExample: MatrixMultiplication.o utils.o
+	$(CCLINKER) -o $@ MatrixMultiplication.o utils.o -L../../lib -lcgm $(MPILDFLAGS)

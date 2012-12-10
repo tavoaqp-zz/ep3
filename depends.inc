@@ -1,2 +1,2 @@
-SendReceiveExample.o: SendReceiveExample.cpp \
+MatrixMultiplication.o: MatrixMultiplication.cpp \
   utils.h
