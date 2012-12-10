@@ -49,7 +49,7 @@ void workOnSubMatrix(int ***matrix, vector<int>* values, int row_start, int row_
 	int start_diag=0;
 	int end_diag=0;
 	int row_index=0;
-	if (cols==1 && rows==1 && (*matrix))row_start][col_start]==0)
+	if (cols==1 && rows==1 && (*matrix)[row_start][col_start]==0)
 	{
 		return;
 	}else
@@ -67,13 +67,13 @@ void workOnSubMatrix(int ***matrix, vector<int>* values, int row_start, int row_
 		}
 		for (int diag=start_diag;diag<=end_diag;diag++)
 		{
-			for (;row_index<=size-diag;row_index++;)
+			for (;row_index<=size-diag;row_index++)
 			{
 				int col_index=row_index+diag;
 
 				if ((*matrix)[row_index][col_index]!=-1) continue;
 
-				int min=10000000000;
+				int min=1000000;
 				for (int k=row_index;k<col_index;k++)
 				{
 					int cur=(*matrix)[row_index][k]+(*matrix)[k+1][col_index]+(*values)[row_index-1]*(*values)[k]*(*values)[col_index];
