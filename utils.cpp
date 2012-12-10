@@ -9,7 +9,7 @@ void copyToSubMatrix(int ***matrix, int ***submatrix, int row_start, int row_end
 		}
 }
 
-void copyFromSubMatrix(int ***matrix, CommObjectList *result)
+void copyFromSubMatrix(int ***matrix, CommObjectList *result, int src_id, int dst_id, int rodada)
 {
 	int rec_row_start=0;
 	SimpleCommObject<int> *row_start_obj=dynamic_cast<SimpleCommObject<int>*>((*result)[0]);
@@ -31,6 +31,7 @@ void copyFromSubMatrix(int ***matrix, CommObjectList *result)
 	int cols=rec_col_end-rec_col_start+1;
 
 	int index=4;
+	//printf("SRC_ID: %d DST_ID: %d ROW_START: %d ROW_END:%d COL_START: %d COL_END: %d - RODADA %d\n",src_id,dst_id,rec_row_start,rec_row_end,rec_col_start,rec_col_end,rodada);
 	for (int i=rec_row_start;i<=rec_row_end;i++)
 		for (int j=rec_col_start;j<=rec_col_end;j++)
 		{
@@ -65,7 +66,7 @@ void workOnSubMatrix(int ***matrix, vector<int>* values, int row_start, int row_
 			end_diag=start_diag+2*(bloco-1);
 			row_index=row_end;
 		}
-		printf("start_diag %d end_diag %d row_index %d\n",start_diag,end_diag,row_index);
+//		printf("ID %d, start_diag %d end_diag %d row_index %d\n",id,start_diag,end_diag,row_index);
 		for (int diag=start_diag;diag<=end_diag;diag++)
 		{
 			for (;row_index<=size-diag;row_index++)
@@ -73,14 +74,17 @@ void workOnSubMatrix(int ***matrix, vector<int>* values, int row_start, int row_
 				int col_index=row_index+diag;
 
 				if ((*matrix)[row_index][col_index]!=-1) continue;
-
+//				printf("ID %d, calc %d,%d\n",id,row_index,col_index);
 				int min=1000000;
+				
 				for (int k=row_index;k<col_index;k++)
 				{
-					int cur=(*matrix)[row_index][k]+(*matrix)[k+1][col_index]+(*values)[row_index-1]*(*values)[k]*(*values)[col_index];
+					
+					int cur=(*matrix)[row_index][k]+(*matrix)[k+1][col_index]+(*values)[row_index]*(*values)[k+1]*(*values)[col_index+1];
 					if (cur<min)
 						min=cur;
 				}
+		//		printf("ID %d, Valor %d,%d=%d - RODADA %d\n",id,row_index,col_index,min, rodada);
 				(*matrix)[row_index][col_index]=min;
 				if (row_index==row_end || col_index==col_end)
 				{
@@ -96,7 +100,7 @@ void convertMatrixToList(int ***matrix, int row_start, int row_end, int col_star
 {
 	int rows=row_end-row_start+1;
 	int cols=col_end-col_start+1;
-	result->setSize(4+rows*cols+(rows-1));
+	result->setSize(4+rows*cols);
 	SimpleCommObject<int> *row_start_obj=dynamic_cast<SimpleCommObject<int>*>((*result)[0]);
 	row_start_obj->setData(row_start);
 
@@ -110,12 +114,12 @@ void convertMatrixToList(int ***matrix, int row_start, int row_end, int col_star
 	col_end_obj->setData(col_end);
 
 	int elem_index=4;
-	for (int row=0;row<row_end-row_start+1;row++)
+	for (;row_start<=row_end;row_start++)
 	{
-		for(int col=0;col<col_end-col_start+1;col++)
+		for(;col_start<=col_end;col_start++)
 		{
 			SimpleCommObject<int>* new_elem=dynamic_cast<SimpleCommObject<int>*>((*result)[elem_index]);
-			new_elem->setData((*matrix)[row][col]);
+			new_elem->setData((*matrix)[row_start][col_start]);
 			elem_index++;
 		}
 		elem_index++;
