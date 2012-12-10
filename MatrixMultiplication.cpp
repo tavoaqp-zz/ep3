@@ -43,18 +43,19 @@ int main (int argc, char **argv)
 	int **total_matrix=new int*[matrix_size];
 	for (int i=0;i<matrix_size;i++)
 		total_matrix[i]=new int[matrix_size];
-	for (int row=0;row<values.size();row++)
-		for (int col=0;col<values.size();col++)
+	for (int row=0;row<matrix_size;row++)
+		for (int col=0;col<matrix_size;col++)
 			{
 				if (row==col)
 					total_matrix[row][row]=0;
 				else
 					total_matrix[row][col]=-1;
 			}
+printf("A\n");	
 
 	int row_start=bloco*id;
 	int row_end=bloco*(id+1)-1;
-	
+
 	for (int rodada=0;rodada<=p-id-1;rodada++)
 	{
 		int col_start=bloco*(rodada+id);
@@ -83,7 +84,7 @@ int main (int argc, char **argv)
 	}
 	if (id==0)
 	{
-		printf("Custo total da matriz %d",total_matrix[0][values.size()-1]);
+		printf("Custo total da matriz %d\n",total_matrix[0][values.size()-1]);
 	}
 
   comm -> dispose(); 
