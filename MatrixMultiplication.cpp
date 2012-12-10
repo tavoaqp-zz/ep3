@@ -33,7 +33,7 @@ int main (int argc, char **argv)
   }
   else
   {
-	printf("Ta faltando argumento com tamanho das matrices: ex. 1,3,4,5,6");
+	printf("Ta faltando argumento com tamanho das matrices: ex. 1,3,4,5,6\n");
   }
 
 	int bloco=values.size()-1/p;
@@ -51,16 +51,15 @@ int main (int argc, char **argv)
 				else
 					total_matrix[row][col]=-1;
 			}
-printf("A\n");	
 
 	int row_start=bloco*id;
 	int row_end=bloco*(id+1)-1;
-
+	printf("row_start %d row_end %d\n",row_start, row_end);
 	for (int rodada=0;rodada<=p-id-1;rodada++)
 	{
 		int col_start=bloco*(rodada+id);
 		int col_end=bloco*(rodada+id+1)-1;
-
+		printf("col_start %d, col_end %d\n");
 		CommObjectList data_to_send(&sample);
 
 		workOnSubMatrix(&total_matrix, &values, row_start,row_end,col_start,col_end, rodada, bloco, id);
@@ -86,7 +85,14 @@ printf("A\n");
 	{
 		printf("Custo total da matriz %d\n",total_matrix[0][values.size()-1]);
 	}
-
+	for (int row=0;row<matrix_size;row++)
+	{
+		for (int col=0;col<matrix_size;col++)
+			{
+				printf("%d ",total_matrix[row][col]);
+			}
+		printf("\n");
+	}
   comm -> dispose(); 
 }
 

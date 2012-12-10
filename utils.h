@@ -3,6 +3,8 @@
 
 #include "CommObjectList.h"
 #include "SimpleCommObject.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 void copyToSubMatrix(int ***matrix, int ***submatrix, int row_start, int row_end, int col_start, int col_end);
 void copyFromSubMatrix(int ***matrix, CommObjectList *result);

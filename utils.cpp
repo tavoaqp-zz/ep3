@@ -65,6 +65,7 @@ void workOnSubMatrix(int ***matrix, vector<int>* values, int row_start, int row_
 			end_diag=start_diag+2*(bloco-1);
 			row_index=row_end;
 		}
+		printf("start_diag %d end_diag %d row_index %d\n",start_diag,end_diag,row_index);
 		for (int diag=start_diag;diag<=end_diag;diag++)
 		{
 			for (;row_index<=size-diag;row_index++)
@@ -80,6 +81,7 @@ void workOnSubMatrix(int ***matrix, vector<int>* values, int row_start, int row_
 					if (cur<min)
 						min=cur;
 				}
+				(*matrix)[row_index][col_index]=min;
 				if (row_index==row_end || col_index==col_end)
 				{
 					row_index=row_start;
