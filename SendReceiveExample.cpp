@@ -67,7 +67,7 @@ int main (int argc, char **argv)
 		int **submatrix=new int*[row_end-row_start+1];
 		for (int i=0;i<row_size;i++)
 			submatrix[i]=new int[col_end-col_start+1];
-		copyToSubMatrix(&matrix,&submatrix,row_start,row_end,col_start,col_end);
+		copyToSubMatrix(&total_matrix,&submatrix,row_start,row_end,col_start,col_end);
 		convertMatrixToList(&submatrix,row_start, row_end, col_start, col_end, &data_to_send);
 		CommObjectList data_to_receive(&sample);
 		if (id!=0)
@@ -83,7 +83,7 @@ int main (int argc, char **argv)
 	}
 	if (id==0)
 	{
-		printf("Custo total da matriz %d",matrix[0][values.size()-1]);
+		printf("Custo total da matriz %d",total_matrix[0][values.size()-1]);
 	}
 
   comm -> dispose(); 
