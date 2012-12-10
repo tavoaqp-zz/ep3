@@ -33,13 +33,16 @@ void copyFromSubMatrix(int ***matrix, CommObjectList *result, int src_id, int ds
 	int index=4;
 	//printf("SRC_ID: %d DST_ID: %d ROW_START: %d ROW_END:%d COL_START: %d COL_END: %d - RODADA %d\n",src_id,dst_id,rec_row_start,rec_row_end,rec_col_start,rec_col_end,rodada);
 	for (int i=rec_row_start;i<=rec_row_end;i++)
+	{
 		for (int j=rec_col_start;j<=rec_col_end;j++)
 		{
 			SimpleCommObject<int>* next=dynamic_cast<SimpleCommObject<int>*>((*result)[index]);
 			(*matrix)[i][j]=next->getData();
+	//		printf("I:%d->%d R:%d (%d,%d)->%d\n",src_id,dst_id,rodada,i,j,(*matrix)[i][j]);
 			index++;
 		}
-
+		//printf("\n");
+	}
 }
 
 void workOnSubMatrix(int ***matrix, vector<int>* values, int row_start, int row_end, int col_start, int col_end, int rodada, int bloco, int id)
@@ -59,7 +62,8 @@ void workOnSubMatrix(int ***matrix, vector<int>* values, int row_start, int row_
 		{
 			start_diag=1;
 			end_diag=start_diag+bloco-2;
-			row_index=id*bloco;
+			//row_index=id*bloco;
+			row_index=row_start;
 		}else
 		{
 			start_diag=bloco*(rodada-1)+1;
@@ -96,7 +100,7 @@ void workOnSubMatrix(int ***matrix, vector<int>* values, int row_start, int row_
 	}
 }
 
-void convertMatrixToList(int ***matrix, int row_start, int row_end, int col_start, int col_end, CommObjectList *result)
+void convertMatrixToList(int ***matrix, int row_start, int row_end, int col_start, int col_end, CommObjectList *result,int id,int rodada)
 {
 	int rows=row_end-row_start+1;
 	int cols=col_end-col_start+1;
@@ -114,14 +118,15 @@ void convertMatrixToList(int ***matrix, int row_start, int row_end, int col_star
 	col_end_obj->setData(col_end);
 
 	int elem_index=4;
-	for (;row_start<=row_end;row_start++)
+	for (int i=row_start;i<=row_end;i++)
 	{
-		for(;col_start<=col_end;col_start++)
+		for(int j=col_start;j<=col_end;j++)
 		{
 			SimpleCommObject<int>* new_elem=dynamic_cast<SimpleCommObject<int>*>((*result)[elem_index]);
-			new_elem->setData((*matrix)[row_start][col_start]);
+			new_elem->setData((*matrix)[i][j]);
+		//	printf("O:%d->? R:%d (%d,%d)->%d\n",id,rodada,i,j,(*matrix)[i][j]);
+
 			elem_index++;
 		}
-		elem_index++;
 	}
 }
