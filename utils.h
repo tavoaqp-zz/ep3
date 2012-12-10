@@ -5,7 +5,8 @@
 #include "SimpleCommObject.h"
 
 void copyToSubMatrix(int ***matrix, int ***submatrix, int row_start, int row_end, int col_start, int col_end);
-void workOnSubMatrix(int ***cost_matrix, int row_start, int row_end, int col_start, int col_end, CommObjectList **last_received);
+void copyFromSubMatrix(int ***matrix, CommObjectList *result);
+void workOnSubMatrix(int ***matrix, vector<int>* values, int row_start, int row_end, int col_start, int col_end, int rodada, int bloco, int id);
 void convertMatrixToList(int ***matrix, int row_start, int row_end, int col_start, int col_end, CommObjectList *result);
 
 #endif

@@ -44,26 +44,26 @@ int main (int argc, char **argv)
 	for (int i=0;i<matrix_size;i++)
 		total_matrix[i]=new int[matrix_size];
 	for (int row=0;row<values.size();row++)
-		total_matrix[row][row]=0;
-	int **matrix=new int*[bloco];
-	for (int i=0;i<bloco;i++)
-		matrix[i]=new int[matrix_size];
-	CommObjectList *last_data_received=0;
-	for (int rodada=0;rodada<=p-id;rodada++)
+		for (int col=0;col<values.size();col++)
+			{
+				if (row==col)
+					total_matrix[row][row]=0;
+				else
+					total_matrix[row][col]=-1;
+			}
+
+	int row_start=bloco*id;
+	int row_end=bloco*(id+1)-1;
+	
+	for (int rodada=0;rodada<=p-id-1;rodada++)
 	{
+		int col_start=bloco*(rodada+id);
+		int col_end=bloco*(rodada+id+1)-1;
+
 		CommObjectList data_to_send(&sample);
-		int row_start=0;
-		int row_end=bloco-1;
-		int col_start=rodada*bloco;
-		int col_end=((rodada+1)*bloco)-1;
-		int offset=0;
-		while (matrix[row_start][col_start+offset]!=0)
-			offset++;
-		col_start+=offset;
-		col_end+=offset;
-		int row_size=row_end-row_start+1;
-		int col_size=col_end-col_start+1;
-		workOnSubMatrix(&matrix,row_start,row_end,col_start,col_end, &last_data_received);
+
+		workOnSubMatrix(&total_matrix, &values, row_start,row_end,col_start,col_end, rodada, bloco, id);
+		
 		int **submatrix=new int*[row_size];
 		for (int i=0;i<row_size;i++)
 			submatrix[i]=new int[col_size];
@@ -77,8 +77,9 @@ int main (int argc, char **argv)
 		if (id!=p-1)
 		{
 			comm -> receive(id+1,data_to_receive,id+1,&actualSource);
-			last_data_received=&data_to_receive;
+			copyFromSubMatrix(&total_matrix,&data_to_receive);
 		}
+
 	}
 	if (id==0)
 	{
