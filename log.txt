@@ -1,61 +1,34 @@
-ID: 2 Bloco: 1
 ID: 1 Bloco: 1
-ID 1, row_start 1 row_end 1
-ID 1, col_start 1, col_end 1 RODADA: 0
-O:1->? R:0 (1,1)->0
+ID: 2 Bloco: 1
 ID: 0 Bloco: 2
 ID 0, row_start 0 row_end 1
+ID 1, row_start 2 row_end 2
+ID 2, row_start 3 row_end 3
 ID 0, col_start 0, col_end 1 RODADA: 0
-R>0 0,0=0 R>0 0,1=10 R>0 0,2=-1 R>0 0,3=-1 
-R>0 1,0=-1 R>0 1,1=0 R>0 1,2=-1 R>0 1,3=-1 
-R>0 2,0=-1 R>0 2,1=-1 R>0 2,2=0 R>0 2,3=-1 
+ID 1, col_start 2, col_end 2 RODADA: 0
+ID 2, col_start 3, col_end 3 RODADA: 0
+ID 0, col_start 0, col_end 1 RODADA: 1
+ID 1, col_start 2, col_end 2 RODADA: 1
+
+ID: 0 ESPERA RECEBER DE ID: 1 RODADA: 0
+MANDOU DE ID: 1 a ID: 0 RODADA:0
+ID: 0 RECEBEU DE ID: 1 RODADA: 0
+
+ID: 0 ESPERA RECEBER DE ID: 1 RODADA: 1
+MANDOU DE ID: 1 a ID: 0 RODADA:1
+ID: 0 RECEBEU DE ID: 1 RODADA: 1
+
+ID: 1 ESPERA RECEBER DE ID: 2 RODADA: 0
+MANDOU DE ID: 2 a ID: 1 RODADA:0
+ID: 1 RECEBEU DE ID: 2 RODADA: 0
+
+R>0 0,0=0 R>0 0,1=-1 R>0 0,2=-1 R>0 0,3=-1 
+R>0 1,0=-1 R>0 1,1=0 R>0 1,2=-1 PR>0 1,3=-1 
+R>0 2,0=-1 R>0 2,1=-1 2R>0 2,2=0 R>0 2,3=-1 
 R>0 3,0=-1 R>0 3,1=-1 R>0 3,2=-1 R>0 3,3=0 
-O:0->? R:0 (0,0)->0
-O:0->? R:0 (0,1)->10
-O:0->? R:0 (1,0)->-1
-O:0->? R:0 (1,1)->0
-I:1->0 R:0 (1,1)->0
-ID 0, col_start 2, col_end 3 RODADA: 1
-R>1 0,0=0 R>1 0,1=10 R>1 0,2=16 R>1 0,3=21 
-R>1 1,0=-1 R>1 1,1=0 R>1 1,2=15 R>1 1,3=29 
+R>1 0,0=0 R>1 0,1=-1 R>1 0,2=-1 R>1 0,3=-1 
+R>1 1,0=-1 R>1 1,1=0 R>1 1,2=-1 R>1 1,3=-1 
 R>1 2,0=-1 R>1 2,1=-1 R>1 2,2=0 R>1 2,3=-1 
 R>1 3,0=-1 R>1 3,1=-1 R>1 3,2=-1 R>1 3,3=0 
-O:0->? R:1 (0,2)->16
-O:0->? R:1 (0,3)->21
-O:0->? R:1 (1,2)->15
-O:0->? R:1 (1,3)->29
-O:0->? R:1 (2,2)->0
-O:0->? R:1 (2,3)->-1
-O:0->? R:1 (3,2)->-1
-O:0->? R:1 (3,3)->0
-ID 2, row_start 2 row_end 2
-ID 2, col_start 2, col_end 2 RODADA: 0
-O:2->? R:0 (2,2)->0
-ID 2 terminou
-P2: Total # of communication = 5
-P2: Maximum message size = 40
-P2: Maximum comm time = 0.052003, occured at location 7.
-I:2->1 R:0 (2,2)->0
-ID 1, col_start 2, col_end 2 RODADA: 1
-O:1->? R:1 (1,2)->15
-O:1->? R:1 (2,2)->0
 ID 1 terminou
-P1: Total # of communication = 9
-P1: Maximum message size = 48
-P1: Maximum comm time = 0.072004, occured at location 7.
-I:1->0 R:1 (1,2)->15
-I:1->0 R:1 (2,2)->0
-ID 0, col_start 4, col_end 5 RODADA: 2
-R>2 0,0=0 R>2 0,1=10 R>2 0,2=16 R>2 0,3=21 
-R>2 1,0=-1 R>2 1,1=0 R>2 1,2=15 R>2 1,3=29 
-R>2 2,0=-1 R>2 2,1=-1 R>2 2,2=0 R>2 2,3=-1 
-R>2 3,0=-1 R>2 3,1=-1 R>2 3,2=-1 R>2 3,3=0 
-O:0->? R:2 (0,4)->0
-O:0->? R:2 (0,5)->25
-O:0->? R:2 (1,4)->0
-O:0->? R:2 (1,5)->25
-O:0->? R:2 (2,4)->0
-O:0->? R:2 (2,5)->25
-O:0->? R:2 (3,4)->0
-O:0->? R:2 (3,5)->17
-Terminated (signal 15)
+

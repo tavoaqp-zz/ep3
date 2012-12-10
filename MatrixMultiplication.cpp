@@ -33,9 +33,9 @@ int main (int argc, char **argv)
   }
   else
   {
-	printf("Ta faltando argumento com tamanho das matrices: ex. 1,3,4,5,6\n");
+	printf("Falt argumento com os tamanhos das matrices: ex. 1,3,4,5,6\n");
   }
-	//printf("size %d\n",values.size());
+//	printf("size %d\n",values.size());
 //	int bloco=(values.size()-1)/p;
 	//printf("Bloco %d\n",bloco);
 		SimpleCommObject<int> sample(0);
@@ -63,22 +63,24 @@ int main (int argc, char **argv)
 		else
 			blocos[i]=q;
 	}
-	printf("ID: %d Bloco: %d\n",id,blocos[id]);
+	//printf("ID: %d Bloco: %d\n",id,blocos[id]);
 	int bloco_offset=0;
 	for (int i=0;i<id;i++)
 		bloco_offset+=blocos[i];
 	//int row_start=blocos[id]*id;
 	int row_start=bloco_offset;
 	int row_end=row_start+blocos[id]-1;
-	printf("ID %d, row_start %d row_end %d\n",id,row_start, row_end);
+	//printf("ID %d, row_start %d row_end %d\n",id,row_start, row_end);
 	for (int rodada=0;rodada<=p-id-1;rodada++)
 	{
 		//printf("ID %d RODADA %d\n",id,rodada);
 		//int col_start=blocos[id]*(rodada+id);
-		int col_start=bloco_offset;
+		int col_start=bloco_offset+(blocos[id]*rodada);
 		//int col_end=blocos[id]*(rodada+id+1)-1;
 		int col_end=col_start+blocos[id]-1;
-		printf("ID %d, col_start %d, col_end %d RODADA: %d\n",id,col_start, col_end,rodada);
+		if (col_start>values.size()-2)
+			break;
+	//	printf("ID %d, col_start %d, col_end %d RODADA: %d\n",id,col_start, col_end,rodada);
 		CommObjectList data_to_send(&sample);
 
 		workOnSubMatrix(&total_matrix, &values, row_start,row_end,col_start,col_end, rodada, blocos[id], id);
@@ -86,7 +88,7 @@ int main (int argc, char **argv)
 		int **submatrix=new int*[row_end-row_start+1];
 		for (int i=0;i<row_end-row_start+1;i++)
 			submatrix[i]=new int[col_end-col_start+1];
-if (id==1)
+/*if (id==1)
 {		
 	for (int row=0;row<matrix_size;row++)
 	{
@@ -96,7 +98,7 @@ if (id==1)
 			}
 		printf("\n");
 	}
-}
+}*/
 
 		convertMatrixToList(&total_matrix,row_start, col_end, col_start, col_end, &data_to_send,id,rodada);
 		//printf("ID: %d, COPIOU SUBM RODADA: %d\n",id,rodada);
@@ -108,29 +110,31 @@ if (id==1)
 		{
 			//printf("ID: %d IS SENDING RODADA: %d\n",id,rodada);
 			comm -> send(id-1,data_to_send,rodada);
-			printf("MANDOU DE ID: %d a ID: %d RODADA:%d\n",id,id-1,rodada);
+//			printf("MANDOU DE ID: %d a ID: %d TAG_ROUND:%d\n",id,id-1,rodada);
 		}
 		if (id!=p-1)
 		{
-			if (rodada==p-id-1)
+			if (col_end>=values.size()-2)
 			{
+//				printf("ID: %d SAINDO\n",id);
 				continue;
 			}else
 			{
 			
-			printf("ID: %d ESPERA RECEBER DE ID: %d RODADA: %d\n",id,id+1,rodada);
-			int num_receives=blocos[id]/blocos[id+1];
+				int num_receives=blocos[id]/blocos[id+1];
+//				printf("ID: %d ESPERA RECEBER %d DE ID: %d RODADA: %d\n",id,num_receives,id+1,rodada);
+
 			for (int i=0;i<num_receives;i++)
 			{
 				comm -> receive(id+1,data_to_receive,rodada+i,&actualSource);
 				copyFromSubMatrix(&total_matrix,&data_to_receive,id+1,id,rodada+i);
 
-				printf("ID: %d RECEBEU DE ID: %d RODADA: %d\n",id,id+1, rodada+i);	
+//				printf("ID: %d RECEBEU DE ID: %d TAG_ROUND: %d\n",id,id+1, rodada+i);	
 			}
 						}
 		}
 	}
-	printf("ID %d terminou\n",id);
+//	printf("ID %d terminou\n",id);
 
 	if (id==0)
 	{
